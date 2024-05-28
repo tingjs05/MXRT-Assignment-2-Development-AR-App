@@ -50,18 +50,6 @@ public class ARDrawManager : MonoBehaviour
         // set default crosshairs to show
         crosshair.SetActive(true);
         crosshairFocused.SetActive(false);
-
-        // test draw line
-        // StartDrawLine();
-        // ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, 1));
-        // ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, 2));
-        // ContinueDrawLine(lineRenderers[0], new Vector3(1, 0, 2));
-        // StopDrawLine();
-        // StartDrawLine();
-        // ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, 1));
-        // ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, -2));
-        // ContinueDrawLine(lineRenderers[0], new Vector3(-1, 0, -2));
-        // StopDrawLine();
     }
 
     // Update is called once per frame

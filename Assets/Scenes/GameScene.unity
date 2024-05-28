@@ -1658,7 +1658,7 @@ MonoBehaviour:
   cornerVertices: 3
   color: {r: 1, g: 0.1745283, b: 0.1745283, a: 1}
   material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
-  maxPlaneDrawDistance: 25
+  maxPlaneDrawDistance: 10
   crosshair: {fileID: 1301785684}
   crosshairFocused: {fileID: 1212724097}
 --- !u!114 &1128239748
@@ -1820,8 +1820,8 @@ Transform:
   m_GameObject: {fileID: 1212724097}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.87}
-  m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
+  m_LocalPosition: {x: 0, y: 0.01, z: 2.87}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
