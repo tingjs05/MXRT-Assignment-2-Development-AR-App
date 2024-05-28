@@ -1252,7 +1252,8 @@ MonoBehaviour:
   minLineDistance: 0.1
   width: 0.1
   cornerVertices: 3
-  color: {r: 0, g: 0, b: 0, a: 1}
+  color: {r: 1, g: 0.1745283, b: 0.1745283, a: 1}
+  material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   crosshair: {fileID: 1301785684}
   CanDraw: 1
 --- !u!114 &1128239748

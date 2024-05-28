@@ -18,6 +18,7 @@ public class ARDrawManager : MonoBehaviour
     [SerializeField] float width = 0.1f;
     [SerializeField] int cornerVertices = 3;
     [SerializeField] Color color = Color.black;
+    [SerializeField] Material material;
 
     [Header("UI")]
     [SerializeField] GameObject crosshair;
@@ -55,33 +56,27 @@ public class ARDrawManager : MonoBehaviour
 
         // hide crosshair by default
         crosshair.SetActive(false);
-
-        StartDrawLine();
-        ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, 1));
-        ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, 2));
-        ContinueDrawLine(lineRenderers[0], new Vector3(1, 0, 2));
-        StopDrawLine();
     }
 
     // Update is called once per frame
-    // void Update()
-    // {
-    //     // use raycast to detect plane
-    //     raycastManager.Raycast(
-    //             Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)), 
-    //             hits, TrackableType.Planes
-    //         );
-    //     // check if a plane is detected
-    //     if (hits.Count > 0)
-    //         // show crosshair if can draw line
-    //         crosshair.SetActive(true);
-    //     else
-    //         // hide crosshair if cannot draw
-    //         crosshair.SetActive(false);
+    void Update()
+    {
+        // use raycast to detect plane
+        raycastManager.Raycast(
+                Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)), 
+                hits, TrackableType.Planes
+            );
+        // check if a plane is detected
+        if (hits.Count > 0)
+            // show crosshair if can draw line
+            crosshair.SetActive(true);
+        else
+            // hide crosshair if cannot draw
+            crosshair.SetActive(false);
 
-    //     // check if need to draw a line
-    //     CheckDrawLine();
-    // }
+        // check if need to draw a line
+        CheckDrawLine();
+    }
 
     // methods to handle line drawing
     // method to check whether to draw a line
@@ -122,13 +117,18 @@ public class ARDrawManager : MonoBehaviour
         // create new line renderer
         LineRenderer line = lineRendererObject.AddComponent<LineRenderer>();
         // set line renderer properties
+        // do not allow line to loop
         line.loop = false;
+        // set width
         line.startWidth = width;
         line.endWidth = width;
+        // make corners rounder
+        line.numCornerVertices = cornerVertices;
+        // set color
         line.startColor = color;
         line.endColor = color;
-        line.numCornerVertices = cornerVertices;
-        line.material = AssetDatabase.GetBuiltinExtraResource<Material>("Default-Diffuse.mat");
+        // set material
+        line.material = material != null? material : AssetDatabase.GetBuiltinExtraResource<Material>("Default-Diffuse.mat");
 
         // add line to line renderer list at index 0
         // if line renderer list is empty, just add the item
