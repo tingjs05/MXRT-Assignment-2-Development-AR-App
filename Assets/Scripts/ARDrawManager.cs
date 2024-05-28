@@ -5,7 +5,9 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-[RequireComponent(typeof(ARPlaneManager), typeof(ARRaycastManager))]
+[RequireComponent(typeof(ARPlaneManager))]
+[RequireComponent(typeof(ARRaycastManager))]
+[RequireComponent(typeof(ARAnchorManager))]
 public class ARDrawManager : MonoBehaviour
 {
     // inspector fields
@@ -35,11 +37,15 @@ public class ARDrawManager : MonoBehaviour
     ARRaycastManager raycastManager;
     List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
+    // variables to manage anchors
+    ARAnchorManager anchorManager;
+
     // Start is called before the first frame update
     void Start()
     {
         // get components
         raycastManager = GetComponent<ARRaycastManager>();
+        anchorManager = GetComponent<ARAnchorManager>();
 
         // set default previous anchor position
         previousAnchorPosition = Vector3.zero;
