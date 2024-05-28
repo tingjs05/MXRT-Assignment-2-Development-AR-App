@@ -25,51 +25,58 @@ public class ARDrawManager : MonoBehaviour
     [SerializeField] GameObject crosshair;
     [SerializeField] GameObject crosshairFocused;
 
-    // list to store all generated line renderers
-    List<LineRenderer> lineRenderers = new List<LineRenderer>();
+    // list to store all generated lines
+    List<Line> lines = new List<Line>();
 
+    // current position of camera based on the center of the screen
+    Vector3 cameraCenter;
     // cache the previous anchor point of the line
     Vector3 previousAnchorPosition;
-    // object to store all the line renderer components
-    GameObject lineRendererObject;
+    // parent objects to manage generated line objects
+    GameObject lineObject;
 
     // variables for raycasting to detect plane
     ARRaycastManager raycastManager;
     List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-    // variables to manage anchors
-    ARAnchorManager anchorManager;
+    // boolean to manage if drawing on plane or floating
+    bool drawingOnPlane = true;
 
     // Start is called before the first frame update
     void Start()
     {
         // get components
         raycastManager = GetComponent<ARRaycastManager>();
-        anchorManager = GetComponent<ARAnchorManager>();
 
         // set default previous anchor position
         previousAnchorPosition = Vector3.zero;
+
+        // instantiate parent game objects
         // set line renderer object by creating a new empty game object
-        lineRendererObject = new GameObject { name = "Line Renderer Object" };
-        lineRendererObject.transform.parent = transform;
+        lineObject = new GameObject { name = "Line Renderer Object" };
+        lineObject.transform.parent = transform;
 
         // set default crosshairs to show
         crosshair.SetActive(true);
         crosshairFocused.SetActive(false);
+
+        // test draw line
+        // TestLine();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // set camera position
+        cameraCenter = Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
         // use raycast to detect plane
-        raycastManager.Raycast(
-                Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)), 
-                hits, TrackableType.Planes
-            );
+        raycastManager.Raycast(cameraCenter, hits, TrackableType.Planes);
 
         // check if a plane is available and can be drawn on
         if (PlaneIsAvailable())
         {
+            // update drawing on plane boolean
+            drawingOnPlane = true;
             // set crosshairs depending on if a plane is detected, and plane is near enough to be drawn on
             crosshair.SetActive(false);
             crosshairFocused.SetActive(true);
@@ -78,6 +85,8 @@ public class ARDrawManager : MonoBehaviour
         }
         else
         {
+            // update drawing on plane boolean
+            drawingOnPlane = false;
             // set crosshairs depending on if a plane is detected, and plane is near enough to be drawn on
             crosshair.SetActive(true);
             crosshairFocused.SetActive(false);
@@ -85,6 +94,21 @@ public class ARDrawManager : MonoBehaviour
 
         // check if need to draw a line
         CheckDrawLine();
+    }
+
+    // method to draw line for testing purposes
+    void TestLine()
+    {
+        StartDrawLine();
+        ContinueDrawLine(lines[0].renderer, new Vector3(0, 0, 1));
+        ContinueDrawLine(lines[0].renderer, new Vector3(0, 0, 2));
+        ContinueDrawLine(lines[0].renderer, new Vector3(1, 0, 2));
+        StopDrawLine();
+        StartDrawLine();
+        ContinueDrawLine(lines[0].renderer, new Vector3(0, 0, 1));
+        ContinueDrawLine(lines[0].renderer, new Vector3(0, 0, -2));
+        ContinueDrawLine(lines[0].renderer, new Vector3(-1, 0, -2));
+        StopDrawLine();
     }
 
     // method to check if a drawable plane is available
@@ -118,7 +142,8 @@ public class ARDrawManager : MonoBehaviour
         if (touch.phase == TouchPhase.Began) StartDrawLine();
 
         // continue drawing if finger is still down
-        ContinueDrawLine(lineRenderers[0], hits[0].pose.position);
+        // use hit position of drawing on plane, otherwise use camera position
+        ContinueDrawLine(lines[0].renderer, drawingOnPlane? hits[0].pose.position : cameraCenter);
     }
     
     // method to start drawing a line
@@ -127,33 +152,22 @@ public class ARDrawManager : MonoBehaviour
         // ensure previous line has been completed before starting a new line
         if (previousAnchorPosition != Vector3.zero) return;
 
-        // create new game object to store the line renderer
-        GameObject lineObject = new GameObject { name = "Line (" + lineRenderers.Count + ")" };
-        lineObject.transform.parent = lineRendererObject.transform;
-
-        // create new line renderer
-        LineRenderer line = lineObject.AddComponent<LineRenderer>();
-        // set line renderer properties
-        // do not allow line to loop
-        line.loop = false;
-        // set width
-        line.startWidth = width;
-        line.endWidth = width;
-        // make corners rounder
-        line.numCornerVertices = cornerVertices;
-        // set color
-        line.startColor = color;
-        line.endColor = color;
-        // set material
-        line.material = material;
+        // create a new line
+        Line line = new Line(
+                width, 
+                cornerVertices, 
+                color, 
+                material, 
+                lineObject.transform
+            );
 
         // add line to line renderer list at index 0
         // if line renderer list is empty, just add the item
-        if (lineRenderers.Count < 1)
-            lineRenderers.Add(line);
+        if (lines.Count < 1)
+            lines.Add(line);
         // otherwise, insert the item to index 0
         else
-            lineRenderers.Insert(0, line);
+            lines.Insert(0, line);
     }
 
     // method to continue drawing line
@@ -161,9 +175,9 @@ public class ARDrawManager : MonoBehaviour
     {
         // if previous anchor position is still within minimum line distance, do not create a new anchor point for the line
         if (Vector3.Distance(currentAnchorPosition, previousAnchorPosition) < minLineDistance) return;
-
-        // elevate the line slightly off the ground by its width to prevent clipping
-        currentAnchorPosition.y += width;
+        
+        // elevate the line slightly off the ground by its width to prevent clipping when drawing on a plane
+        if (drawingOnPlane) currentAnchorPosition.y += width;
 
         // draw a new line
         // handle setting first anchor
