@@ -1250,6 +1250,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minLineDistance: 0.1
+  width: 0.1
+  cornerVertices: 3
+  color: {r: 0, g: 0, b: 0, a: 1}
   crosshair: {fileID: 1301785684}
   CanDraw: 1
 --- !u!114 &1128239748

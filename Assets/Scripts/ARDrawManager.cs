@@ -4,12 +4,22 @@ using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEditor;
 
 [RequireComponent(typeof(ARPlaneManager), typeof(ARRaycastManager))]
 public class ARDrawManager : MonoBehaviour
 {
     // inspector fields
+    [Header("Drawing Line")]
     [SerializeField] float minLineDistance = 0.1f;
+
+    [Header("Line Properties")]
+    [Range(0f, 1f)]
+    [SerializeField] float width = 0.1f;
+    [SerializeField] int cornerVertices = 3;
+    [SerializeField] Color color = Color.black;
+
+    [Header("UI")]
     [SerializeField] GameObject crosshair;
 
     // lists
@@ -47,9 +57,9 @@ public class ARDrawManager : MonoBehaviour
         crosshair.SetActive(false);
 
         StartDrawLine();
-        ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, 0));
-        ContinueDrawLine(lineRenderers[0], new Vector3(1, 0, 0));
-        ContinueDrawLine(lineRenderers[0], new Vector3(1, 0, 1));
+        ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, 1));
+        ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, 2));
+        ContinueDrawLine(lineRenderers[0], new Vector3(1, 0, 2));
         StopDrawLine();
     }
 
@@ -111,6 +121,14 @@ public class ARDrawManager : MonoBehaviour
 
         // create new line renderer
         LineRenderer line = lineRendererObject.AddComponent<LineRenderer>();
+        // set line renderer properties
+        line.loop = false;
+        line.startWidth = width;
+        line.endWidth = width;
+        line.startColor = color;
+        line.endColor = color;
+        line.numCornerVertices = cornerVertices;
+        line.material = AssetDatabase.GetBuiltinExtraResource<Material>("Default-Diffuse.mat");
 
         // add line to line renderer list at index 0
         // if line renderer list is empty, just add the item
@@ -125,7 +143,7 @@ public class ARDrawManager : MonoBehaviour
     void ContinueDrawLine(LineRenderer line, Vector3 currentAnchorPosition)
     {
         // if previous anchor position is still within minimum line distance, do not run the code
-        if (Vector3.Distance(currentAnchorPosition, previousAnchorPosition) >= minLineDistance) return;
+        if (Vector3.Distance(currentAnchorPosition, previousAnchorPosition) < minLineDistance) return;
 
         // draw a new line
         // handle setting first anchor
