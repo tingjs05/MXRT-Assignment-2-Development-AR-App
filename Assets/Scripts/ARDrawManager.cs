@@ -20,6 +20,8 @@ public class ARDrawManager : MonoBehaviour
 
     // cache the previous anchor point of the line
     Vector3 previousAnchorPosition;
+    // object to store all the line renderer components
+    GameObject lineRendererObject;
 
     // boolean to control whether this script can draw
     [HideInInspector] public bool CanDraw = true;
@@ -37,30 +39,40 @@ public class ARDrawManager : MonoBehaviour
 
         // set default previous anchor position
         previousAnchorPosition = Vector3.zero;
+        // set line renderer object by creating a new empty game object
+        lineRendererObject = new GameObject();
+        lineRendererObject.name = "Line Renderer Object";
+        lineRendererObject.transform.parent = transform;
 
         // hide crosshair by default
         crosshair.SetActive(false);
+
+        StartDrawLine();
+        ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, 0));
+        ContinueDrawLine(lineRenderers[0], new Vector3(1, 0, 0));
+        ContinueDrawLine(lineRenderers[0], new Vector3(1, 0, 1));
+        StopDrawLine();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        // use raycast to detect plane
-        raycastManager.Raycast(
-                Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)), 
-                hits, TrackableType.Planes
-            );
-        // check if a plane is detected
-        if (hits.Count > 0)
-            // show crosshair if can draw line
-            crosshair.SetActive(true);
-        else
-            // hide crosshair if cannot draw
-            crosshair.SetActive(false);
+    // void Update()
+    // {
+    //     // use raycast to detect plane
+    //     raycastManager.Raycast(
+    //             Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)), 
+    //             hits, TrackableType.Planes
+    //         );
+    //     // check if a plane is detected
+    //     if (hits.Count > 0)
+    //         // show crosshair if can draw line
+    //         crosshair.SetActive(true);
+    //     else
+    //         // hide crosshair if cannot draw
+    //         crosshair.SetActive(false);
 
-        // check if need to draw a line
-        CheckDrawLine();
-    }
+    //     // check if need to draw a line
+    //     CheckDrawLine();
+    // }
 
     // methods to handle line drawing
     // method to check whether to draw a line
@@ -86,8 +98,7 @@ public class ARDrawManager : MonoBehaviour
         if (hits.Count <= 0) return;
 
         // start draw line if begin touch
-        if (touch.phase == TouchPhase.Began) 
-            StartDrawLine();
+        if (touch.phase == TouchPhase.Began) StartDrawLine();
 
         // continue drawing if finger is still down
         ContinueDrawLine(lineRenderers[0], hits[0].pose.position);
@@ -100,7 +111,7 @@ public class ARDrawManager : MonoBehaviour
         if (previousAnchorPosition != Vector3.zero) return;
 
         // create new line renderer
-        LineRenderer line = new LineRenderer();
+        LineRenderer line = lineRendererObject.AddComponent<LineRenderer>();
 
         // add line to line renderer list at index 0
         // if line renderer list is empty, just add the item
@@ -118,10 +129,20 @@ public class ARDrawManager : MonoBehaviour
         if (Vector3.Distance(currentAnchorPosition, previousAnchorPosition) >= minLineDistance) return;
 
         // draw a new line
-        // create a new anchor point
-        line.SetPosition(line.positionCount, currentAnchorPosition);
-        // increment position after drawing line
-        line.positionCount++;
+        // handle setting first anchor
+        if (previousAnchorPosition == Vector3.zero)
+        {
+            // create first anchor point
+            line.SetPosition(0, currentAnchorPosition);
+        }
+        // handle continuing line
+        else 
+        {
+            // increment position after drawing line
+            line.positionCount++;
+            // create a new anchor point
+            line.SetPosition(line.positionCount - 1, currentAnchorPosition);
+        }
 
         // cache current anchor position
         previousAnchorPosition = currentAnchorPosition;
