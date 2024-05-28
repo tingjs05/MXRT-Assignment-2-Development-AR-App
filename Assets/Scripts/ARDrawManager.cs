@@ -4,7 +4,6 @@ using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 
 [RequireComponent(typeof(ARPlaneManager), typeof(ARRaycastManager))]
 public class ARDrawManager : MonoBehaviour
@@ -41,9 +40,6 @@ public class ARDrawManager : MonoBehaviour
 
         // hide crosshair by default
         crosshair.SetActive(false);
-
-        // enable touch
-        OnEnable();
     }
 
     // Update is called once per frame
@@ -61,37 +57,26 @@ public class ARDrawManager : MonoBehaviour
         else
             // hide crosshair if cannot draw
             crosshair.SetActive(false);
-    }
 
-    // methods to handle touch detection
-    void OnEnable()
-    {
-        EnhancedTouch.TouchSimulation.Enable();
-        EnhancedTouch.EnhancedTouchSupport.Enable();
-        // method will be called when touch is detected
-        EnhancedTouch.Touch.onFingerDown += CheckDrawLine;
-    }
-
-    void OnDisable()
-    {
-        EnhancedTouch.TouchSimulation.Disable();
-        EnhancedTouch.EnhancedTouchSupport.Disable();
-        // method will not no longer be called
-        EnhancedTouch.Touch.onFingerDown -= CheckDrawLine;
+        // check if need to draw a line
+        CheckDrawLine();
     }
 
     // methods to handle line drawing
     // method to check whether to draw a line
-    void CheckDrawLine(EnhancedTouch.Finger finger)
+    void CheckDrawLine()
     {
         // check if can draw
         if (!CanDraw) return;
-        // only detect one touch input at one time
-        if (finger.index != 0) return;
+        // check if user is touching the screen, ensure the user is touching the screen
+        if (Input.touchCount <= 0) return;
+
+        // get touch input
+        Touch touch = Input.GetTouch(0);
 
         // check touch phase
         // end draw line if touch phase ended
-        if (!finger.isActive)
+        if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
         {
             StopDrawLine();
             return;
@@ -101,7 +86,7 @@ public class ARDrawManager : MonoBehaviour
         if (hits.Count <= 0) return;
 
         // start draw line if begin touch
-        if (finger.currentTouch.phase == UnityEngine.InputSystem.TouchPhase.Began) 
+        if (touch.phase == TouchPhase.Began) 
             StartDrawLine();
 
         // continue drawing if finger is still down
