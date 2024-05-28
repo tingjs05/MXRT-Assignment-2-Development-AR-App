@@ -40,8 +40,7 @@ public class ARDrawManager : MonoBehaviour
         // set default previous anchor position
         previousAnchorPosition = Vector3.zero;
         // set line renderer object by creating a new empty game object
-        lineRendererObject = new GameObject();
-        lineRendererObject.name = "Line Renderer Object";
+        lineRendererObject = new GameObject(name = "Line Renderer Object");
         lineRendererObject.transform.parent = transform;
 
         // hide crosshair by default
