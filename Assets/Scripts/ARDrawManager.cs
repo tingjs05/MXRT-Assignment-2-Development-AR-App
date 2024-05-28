@@ -9,12 +9,9 @@ using UnityEngine.XR.ARSubsystems;
 public class ARDrawManager : MonoBehaviour
 {
     // inspector fields
-    [Header("Drawing Line")]
-    [SerializeField] float minLineDistance = 0.1f;
-
     [Header("Line Properties")]
-    [Range(0f, 1f)]
-    [SerializeField] float width = 0.1f;
+    [SerializeField] float minLineDistance = 0.1f;
+    [SerializeField, Range(0f, 1f)] float width = 0.05f;
     [SerializeField] int cornerVertices = 3;
     [SerializeField] Color color = Color.black;
     [SerializeField] Material material;
@@ -50,11 +47,23 @@ public class ARDrawManager : MonoBehaviour
         // set default previous anchor position
         previousAnchorPosition = Vector3.zero;
         // set line renderer object by creating a new empty game object
-        lineRendererObject = new GameObject(name = "Line Renderer Object");
+        lineRendererObject = new GameObject { name = "Line Renderer Object" };
         lineRendererObject.transform.parent = transform;
 
         // hide crosshair by default
         crosshair.SetActive(false);
+
+        // test draw line
+        // StartDrawLine();
+        // ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, 1));
+        // ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, 2));
+        // ContinueDrawLine(lineRenderers[0], new Vector3(1, 0, 2));
+        // StopDrawLine();
+        // StartDrawLine();
+        // ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, 1));
+        // ContinueDrawLine(lineRenderers[0], new Vector3(0, 0, -2));
+        // ContinueDrawLine(lineRenderers[0], new Vector3(-1, 0, -2));
+        // StopDrawLine();
     }
 
     // Update is called once per frame
@@ -81,8 +90,6 @@ public class ARDrawManager : MonoBehaviour
     // method to check whether to draw a line
     void CheckDrawLine()
     {
-        if (Input.touchCount > 0) Debug.Log("touch detected");
-
         // check if can draw
         if (!CanDraw) return;
         // check if user is touching the screen, ensure the user is touching the screen
@@ -95,17 +102,12 @@ public class ARDrawManager : MonoBehaviour
         // end draw line if touch phase ended
         if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
         {
-            Debug.Log("touch ended");
             StopDrawLine();
             return;
         }
 
-        Debug.Log("Length: " + hits.Count);
-
         // ensure there are surfaces hit by raycast
         if (hits.Count <= 0) return;
-
-        Debug.Log("Position: " + hits[0]);
 
         // start draw line if begin touch
         if (touch.phase == TouchPhase.Began) StartDrawLine();
@@ -117,13 +119,15 @@ public class ARDrawManager : MonoBehaviour
     // method to start drawing a line
     void StartDrawLine()
     {
-        Debug.Log("touch started");
-
-        // do not start drawing a new line if the previous line is not completed
+        // ensure previous line has been completed before starting a new line
         if (previousAnchorPosition != Vector3.zero) return;
 
+        // create new game object to store the line renderer
+        GameObject lineObject = new GameObject { name = "Line (" + lineRenderers.Count + ")" };
+        lineObject.transform.parent = lineRendererObject.transform;
+
         // create new line renderer
-        LineRenderer line = lineRendererObject.AddComponent<LineRenderer>();
+        LineRenderer line = lineObject.AddComponent<LineRenderer>();
         // set line renderer properties
         // do not allow line to loop
         line.loop = false;
@@ -150,15 +154,18 @@ public class ARDrawManager : MonoBehaviour
     // method to continue drawing line
     void ContinueDrawLine(LineRenderer line, Vector3 currentAnchorPosition)
     {
-        // if previous anchor position is still within minimum line distance, do not run the code
+        // if previous anchor position is still within minimum line distance, do not create a new anchor point for the line
         if (Vector3.Distance(currentAnchorPosition, previousAnchorPosition) < minLineDistance) return;
 
-        Debug.Log("line drawn");
+        // elevate the line slightly off the ground by its width to prevent clipping
+        currentAnchorPosition.y += width;
 
         // draw a new line
         // handle setting first anchor
         if (previousAnchorPosition == Vector3.zero)
         {
+            // remove extra default position
+            line.positionCount--;
             // create first anchor point
             line.SetPosition(0, currentAnchorPosition);
         }
