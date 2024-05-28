@@ -16,32 +16,29 @@ public class ARDrawManager : MonoBehaviour
     [SerializeField] Color color = Color.black;
     [SerializeField] Material material;
 
+    [Header("Floating Line Properties")]
+    [SerializeField] float maxPlaneDrawDistance = 25f;
+
     [Header("UI")]
     [SerializeField] GameObject crosshair;
+    [SerializeField] GameObject crosshairFocused;
 
-    // lists
     // list to store all generated line renderers
     List<LineRenderer> lineRenderers = new List<LineRenderer>();
-    // list to store hit planes from raycasts
-    List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
     // cache the previous anchor point of the line
     Vector3 previousAnchorPosition;
     // object to store all the line renderer components
     GameObject lineRendererObject;
 
-    // boolean to control whether this script can draw
-    [HideInInspector] public bool CanDraw = true;
-
-    // componenets
-    ARPlaneManager planeManager;
+    // variables for raycasting to detect plane
     ARRaycastManager raycastManager;
+    List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
     // Start is called before the first frame update
     void Start()
     {
-        // get componenets
-        planeManager = GetComponent<ARPlaneManager>();
+        // get components
         raycastManager = GetComponent<ARRaycastManager>();
 
         // set default previous anchor position
@@ -50,8 +47,9 @@ public class ARDrawManager : MonoBehaviour
         lineRendererObject = new GameObject { name = "Line Renderer Object" };
         lineRendererObject.transform.parent = transform;
 
-        // hide crosshair by default
-        crosshair.SetActive(false);
+        // set default crosshairs to show
+        crosshair.SetActive(true);
+        crosshairFocused.SetActive(false);
 
         // test draw line
         // StartDrawLine();
@@ -74,24 +72,37 @@ public class ARDrawManager : MonoBehaviour
                 Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)), 
                 hits, TrackableType.Planes
             );
-        // check if a plane is detected
-        if (hits.Count > 0)
-            // show crosshair if can draw line
-            crosshair.SetActive(true);
-        else
-            // hide crosshair if cannot draw
+
+        // check if a plane is available and can be drawn on
+        if (PlaneIsAvailable())
+        {
+            // set crosshairs depending on if a plane is detected, and plane is near enough to be drawn on
             crosshair.SetActive(false);
+            crosshairFocused.SetActive(true);
+            // update focused crosshair position if plane is detected
+            crosshairFocused.transform.position = hits[0].pose.position;
+        }
+        else
+        {
+            // set crosshairs depending on if a plane is detected, and plane is near enough to be drawn on
+            crosshair.SetActive(true);
+            crosshairFocused.SetActive(false);
+        }
 
         // check if need to draw a line
         CheckDrawLine();
+    }
+
+    // method to check if a drawable plane is available
+    bool PlaneIsAvailable()
+    {
+        return hits.Count > 0 && Vector3.Distance(hits[0].pose.position, transform.position) <= maxPlaneDrawDistance;
     }
 
     // methods to handle line drawing
     // method to check whether to draw a line
     void CheckDrawLine()
     {
-        // check if can draw
-        if (!CanDraw) return;
         // check if user is touching the screen, ensure the user is touching the screen
         if (Input.touchCount <= 0) return;
 
