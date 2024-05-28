@@ -79,8 +79,8 @@ public class ARDrawManager : MonoBehaviour
             // set crosshairs depending on if a plane is detected, and plane is near enough to be drawn on
             crosshair.SetActive(false);
             crosshairFocused.SetActive(true);
-            // update focused crosshair position if plane is detected
-            crosshairFocused.transform.position = hits[0].pose.position;
+            // update focused crosshair position and rotation if plane is detected
+            crosshairFocused.transform.SetPositionAndRotation(hits[0].pose.position, hits[0].pose.rotation);
         }
         else
         {
