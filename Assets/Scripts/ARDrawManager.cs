@@ -4,7 +4,6 @@ using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using UnityEditor;
 
 [RequireComponent(typeof(ARPlaneManager), typeof(ARRaycastManager))]
 public class ARDrawManager : MonoBehaviour
@@ -128,7 +127,7 @@ public class ARDrawManager : MonoBehaviour
         line.startColor = color;
         line.endColor = color;
         // set material
-        line.material = material != null? material : AssetDatabase.GetBuiltinExtraResource<Material>("Default-Diffuse.mat");
+        line.material = material;
 
         // add line to line renderer list at index 0
         // if line renderer list is empty, just add the item
