@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 
 [RequireComponent(typeof(ARPlaneManager), typeof(ARRaycastManager))]
@@ -9,13 +11,14 @@ public class ARDrawManager : MonoBehaviour
 {
     // inspector fields
     [SerializeField] float minLineDistance = 0.1f;
+    [SerializeField] GameObject crosshair;
 
     // lists
     // list to store all generated line renderers
     List<LineRenderer> lineRenderers = new List<LineRenderer>();
+    // list to store hit planes from raycasts
+    List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-    // position of the center of the screen
-    Vector3 center;
     // cache the previous anchor point of the line
     Vector3 previousAnchorPosition;
 
@@ -35,14 +38,29 @@ public class ARDrawManager : MonoBehaviour
 
         // set default previous anchor position
         previousAnchorPosition = Vector3.zero;
-        // set center of screen in world space
-        center = new Vector3(Screen.width / 2, Screen.height / 2, Camera.main.nearClipPlane);
+
+        // hide crosshair by default
+        crosshair.SetActive(false);
+
+        // enable touch
+        OnEnable();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        // use raycast to detect plane
+        raycastManager.Raycast(
+                Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)), 
+                hits, TrackableType.Planes
+            );
+        // check if a plane is detected
+        if (hits.Count > 0)
+            // show crosshair if can draw line
+            crosshair.SetActive(true);
+        else
+            // hide crosshair if cannot draw
+            crosshair.SetActive(false);
     }
 
     // methods to handle touch detection
@@ -78,15 +96,16 @@ public class ARDrawManager : MonoBehaviour
             StopDrawLine();
             return;
         }
-        // start draw line if begin touch
-        if (finger.currentTouch.phase == UnityEngine.InputSystem.TouchPhase.Began) StartDrawLine();
 
-        // handle continued touch
-        List<ARRaycastHit> hits = new List<ARRaycastHit>();
-        if (raycastManager.Raycast(center, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
-        {
-            ContinueDrawLine(lineRenderers[0], hits[0].pose.position);
-        }
+        // ensure there are surfaces hit by raycast
+        if (hits.Count <= 0) return;
+
+        // start draw line if begin touch
+        if (finger.currentTouch.phase == UnityEngine.InputSystem.TouchPhase.Began) 
+            StartDrawLine();
+
+        // continue drawing if finger is still down
+        ContinueDrawLine(lineRenderers[0], hits[0].pose.position);
     }
     
     // method to start drawing a line
