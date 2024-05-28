@@ -81,6 +81,8 @@ public class ARDrawManager : MonoBehaviour
     // method to check whether to draw a line
     void CheckDrawLine()
     {
+        if (Input.touchCount > 0) Debug.Log("touch detected");
+
         // check if can draw
         if (!CanDraw) return;
         // check if user is touching the screen, ensure the user is touching the screen
@@ -93,12 +95,17 @@ public class ARDrawManager : MonoBehaviour
         // end draw line if touch phase ended
         if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
         {
+            Debug.Log("touch ended");
             StopDrawLine();
             return;
         }
 
+        Debug.Log("Length: " + hits.Count);
+
         // ensure there are surfaces hit by raycast
         if (hits.Count <= 0) return;
+
+        Debug.Log("Position: " + hits[0]);
 
         // start draw line if begin touch
         if (touch.phase == TouchPhase.Began) StartDrawLine();
@@ -110,6 +117,8 @@ public class ARDrawManager : MonoBehaviour
     // method to start drawing a line
     void StartDrawLine()
     {
+        Debug.Log("touch started");
+
         // do not start drawing a new line if the previous line is not completed
         if (previousAnchorPosition != Vector3.zero) return;
 
@@ -143,6 +152,8 @@ public class ARDrawManager : MonoBehaviour
     {
         // if previous anchor position is still within minimum line distance, do not run the code
         if (Vector3.Distance(currentAnchorPosition, previousAnchorPosition) < minLineDistance) return;
+
+        Debug.Log("line drawn");
 
         // draw a new line
         // handle setting first anchor
