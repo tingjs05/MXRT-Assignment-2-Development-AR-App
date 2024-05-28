@@ -19,7 +19,8 @@ public class ARDrawManager : MonoBehaviour
     [SerializeField] Material material;
 
     [Header("Floating Line Properties")]
-    [SerializeField] float maxPlaneDrawDistance = 25f;
+    [SerializeField] float maxPlaneDrawDistance = 5f;
+    [SerializeField] float lineCameraOffset = 0.5f;
 
     [Header("UI")]
     [SerializeField] GameObject crosshair;
@@ -135,15 +136,12 @@ public class ARDrawManager : MonoBehaviour
             return;
         }
 
-        // ensure there are surfaces hit by raycast
-        if (hits.Count <= 0) return;
-
         // start draw line if begin touch
         if (touch.phase == TouchPhase.Began) StartDrawLine();
 
         // continue drawing if finger is still down
-        // use hit position of drawing on plane, otherwise use camera position
-        ContinueDrawLine(lines[0].renderer, drawingOnPlane? hits[0].pose.position : cameraCenter);
+        // use hit position of drawing on plane, otherwise use camera position, and draw the line slightly in front of it
+        ContinueDrawLine(lines[0].renderer, drawingOnPlane? hits[0].pose.position : Camera.main.transform.position + (Camera.main.transform.forward * lineCameraOffset));
     }
     
     // method to start drawing a line
