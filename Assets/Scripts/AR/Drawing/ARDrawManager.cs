@@ -155,7 +155,7 @@ public class ARDrawManager : MonoBehaviour
 
         // continue drawing if finger is still down
         // use hit position of drawing on plane, otherwise use camera position, and draw the line slightly in front of it
-        ContinueDrawLine(lines[0].renderer, drawingOnPlane? hits[0].pose.position : Camera.main.transform.position + (Camera.main.transform.forward * lineCameraOffset));
+        ContinueDrawLine(lines[0].renderer, drawingOnPlane ? crosshairFocused.transform.position : Camera.main.transform.position + (Camera.main.transform.forward * lineCameraOffset));
     }
     
     // method to start drawing a line
@@ -224,8 +224,6 @@ public class ARDrawManager : MonoBehaviour
     // method to erase lines within range
     void EraseLine(Touch touch)
     {
-        Debug.Log("erase started");
-
         // only erase when touch phase just begins
         if (touch.phase != TouchPhase.Began) return;
 
