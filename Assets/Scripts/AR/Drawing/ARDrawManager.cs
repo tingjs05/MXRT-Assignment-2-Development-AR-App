@@ -274,6 +274,13 @@ public class ARDrawManager : MonoBehaviour
         lines.Clear();
     }
 
+    // other public methods
+    // method to set the line color
+    public void SetColor(Color _color)
+    {
+        color = _color;
+    }
+
     // gizmos
     void OnDrawGizmosSelected() 
     {
