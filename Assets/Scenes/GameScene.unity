@@ -1567,6 +1567,7 @@ GameObject:
   - component: {fileID: 382815387}
   - component: {fileID: 382815386}
   - component: {fileID: 382815385}
+  - component: {fileID: 382815388}
   m_Layer: 5
   m_Name: Toggle Button
   m_TagString: Untagged
@@ -1636,7 +1637,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 382815386}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 382815388}
+        m_TargetAssemblyTypeName: ToggleShowUI, Assembly-CSharp
+        m_MethodName: ToggleUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &382815386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1675,6 +1688,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382815383}
   m_CullTransparentMesh: 1
+--- !u!114 &382815388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382815383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7e97ff3ab160d84a87d10285d6f9c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDelay: 2
+  fadeSpeed: 0.5
+  showIcon: {fileID: 21300000, guid: f85801cb12062fc47856e28b7b9c9c3b, type: 3}
+  hideIcon: {fileID: 21300000, guid: d96e1d75ca4c1a24e99140fb521a8c4f, type: 3}
+  objectsToHide:
+  - {fileID: 1301785684}
+  - {fileID: 1388960200}
+  - {fileID: 102577458}
+  - {fileID: 484645731}
+  objectsToFade:
+  - {fileID: 1796001027}
 --- !u!1 &484645731
 GameObject:
   m_ObjectHideFlags: 0
@@ -3578,6 +3614,7 @@ MonoBehaviour:
     m_Bits: 64
   crosshair: {fileID: 1301785684}
   crosshairFocused: {fileID: 1212724097}
+  toggleShowUI: {fileID: 382815388}
 --- !u!114 &1128239748
 MonoBehaviour:
   m_ObjectHideFlags: 0

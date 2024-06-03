@@ -30,6 +30,7 @@ public class ARDrawManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] GameObject crosshair;
     [SerializeField] GameObject crosshairFocused;
+    [SerializeField] ToggleShowUI toggleShowUI;
 
     // boolean to control if can draw line
     private bool canDraw = true;
@@ -81,6 +82,9 @@ public class ARDrawManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // dont run if UI is not showing
+        if (toggleShowUI != null && toggleShowUI.IsHidden) return;
+
         // use raycast to detect plane
         raycastManager.Raycast(
             Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)), 
