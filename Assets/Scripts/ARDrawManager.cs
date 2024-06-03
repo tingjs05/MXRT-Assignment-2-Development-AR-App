@@ -19,7 +19,7 @@ public class ARDrawManager : MonoBehaviour
     [SerializeField] Material material;
 
     [Header("Floating Line Properties")]
-    [SerializeField] float maxPlaneDrawDistance = 1.5f;
+    [SerializeField] float maxPlaneDrawDistance = 5f;
     [SerializeField] float lineCameraOffset = 0.5f;
 
     [Header("UI")]
