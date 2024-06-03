@@ -31,7 +31,7 @@ public class ARDrawManager : MonoBehaviour
     [SerializeField] GameObject crosshairFocused;
 
     // boolean to control if can draw line
-    [HideInInspector] bool CanDraw = true;
+    [HideInInspector] public bool CanDraw = true;
 
     // private variables
     // list to store all generated lines
