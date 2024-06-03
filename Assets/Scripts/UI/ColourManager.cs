@@ -22,7 +22,7 @@ public class ColourManager : MonoBehaviour
         if (drawManager == null || ctx == null) return;
 
         // get reference to image to get color
-        Image image = ctx.GetChild(0).GetComponent<Image>();
+        Image image = ctx.GetChild(0)?.GetComponent<Image>();
         // check if an image is found
         if (image == null) return;
         // set color

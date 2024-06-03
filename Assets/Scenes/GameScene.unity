@@ -227,16 +227,16 @@ MonoBehaviour:
   defaultHeight: 100
   drawManager: {fileID: 1128239747}
   buttons:
-  - {fileID: 221840312}
-  - {fileID: 965408379}
-  - {fileID: 1952408567}
-  - {fileID: 202730855}
-  - {fileID: 143101347}
-  - {fileID: 490011166}
-  - {fileID: 755056587}
-  - {fileID: 1340404259}
-  - {fileID: 1635694563}
-  - {fileID: 996910139}
+  - {fileID: 221840313}
+  - {fileID: 965408380}
+  - {fileID: 1952408568}
+  - {fileID: 202730856}
+  - {fileID: 143101348}
+  - {fileID: 490011167}
+  - {fileID: 755056588}
+  - {fileID: 1340404260}
+  - {fileID: 1635694564}
+  - {fileID: 996910140}
 --- !u!1 &143101347
 GameObject:
   m_ObjectHideFlags: 0
