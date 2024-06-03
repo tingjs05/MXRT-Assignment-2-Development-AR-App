@@ -241,7 +241,7 @@ public class ARDrawManager : MonoBehaviour
         if (touch.phase != TouchPhase.Began) return;
 
         // erase lines within range through colliders
-        Collider[] hits = Physics.OverlapSphere(Camera.main.transform.position + (Camera.main.transform.forward * eraserDistance), eraserSize, lineLayer);
+        Collider[] hits = Physics.OverlapSphere(drawingOnPlane ? crosshairFocused.transform.position : Camera.main.transform.position + (Camera.main.transform.forward * eraserDistance), eraserSize, lineLayer);
         // check if there are any collisions
         if (hits.Length <= 0) return;
 
