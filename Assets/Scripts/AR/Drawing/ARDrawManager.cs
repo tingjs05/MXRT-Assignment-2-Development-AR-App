@@ -31,7 +31,13 @@ public class ARDrawManager : MonoBehaviour
     [SerializeField] GameObject crosshairFocused;
 
     // boolean to control if can draw line
-    [HideInInspector] public bool CanDraw = true;
+    private bool canDraw = true;
+    // property to end draw line before disallowing draw line
+    public bool CanDraw 
+    { 
+        get { return canDraw; } 
+        set { StopDrawLine(); canDraw = value; } 
+    }
 
     // private variables
     // list to store all generated lines
@@ -129,7 +135,7 @@ public class ARDrawManager : MonoBehaviour
         Touch touch = Input.GetTouch(0);
         
         // decide whether to draw or erase
-        if (CanDraw)
+        if (canDraw)
             DrawLine(touch);
         else
             EraseLine(touch);
@@ -218,6 +224,12 @@ public class ARDrawManager : MonoBehaviour
     {
         // reset default previous anchor position
         previousAnchorPosition = Vector3.zero;
+        // check if there are lines to update mesh colliders for
+        if (lines.Count <= 0) return;
+        // update mesh collider for line
+        Mesh mesh = new Mesh();
+        lines[0].renderer.BakeMesh(mesh);
+        lines[0].collider.sharedMesh = mesh;
     }
 
     // methods to handle erasing lines
@@ -232,8 +244,6 @@ public class ARDrawManager : MonoBehaviour
         // check if there are any collisions
         if (hits.Length <= 0) return;
 
-        Debug.Log("erasing");
-
         // erase lines hit
         foreach (Collider hit in hits)
         {
@@ -242,9 +252,8 @@ public class ARDrawManager : MonoBehaviour
             if (line == null) continue;
             // remove from lines list if it exists
             if (lines.Contains(line)) lines.Remove(line);
-            line.gameObject.SetActive(false);
             // destroy game object
-            // Destroy(line.gameObject);
+            Destroy(line.gameObject);
         }
     }
 
