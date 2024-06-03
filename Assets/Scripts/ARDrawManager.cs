@@ -74,24 +74,18 @@ public class ARDrawManager : MonoBehaviour
         raycastManager.Raycast(cameraCenter, hits, TrackableType.Planes);
 
         // check if a plane is available and can be drawn on
-        if (PlaneIsAvailable())
+        // only check for plane if not already drawing line
+        if (previousAnchorPosition == Vector3.zero)
         {
             // update drawing on plane boolean
-            drawingOnPlane = true;
+            drawingOnPlane = PlaneIsAvailable();
             // set crosshairs depending on if a plane is detected, and plane is near enough to be drawn on
-            crosshair.SetActive(false);
-            crosshairFocused.SetActive(true);
-            // update focused crosshair position and rotation if plane is detected
-            crosshairFocused.transform.SetPositionAndRotation(hits[0].pose.position, hits[0].pose.rotation);
+            crosshair.SetActive(!drawingOnPlane);
+            crosshairFocused.SetActive(drawingOnPlane);
         }
-        else
-        {
-            // update drawing on plane boolean
-            drawingOnPlane = false;
-            // set crosshairs depending on if a plane is detected, and plane is near enough to be drawn on
-            crosshair.SetActive(true);
-            crosshairFocused.SetActive(false);
-        }
+        
+        // update focused crosshair position and rotation if plane is detected
+        if (drawingOnPlane) crosshairFocused.transform.SetPositionAndRotation(hits[0].pose.position, hits[0].pose.rotation);
 
         // check if need to draw a line
         CheckDrawLine();
