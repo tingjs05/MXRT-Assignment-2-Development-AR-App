@@ -91,7 +91,8 @@ public class ARDrawManager : MonoBehaviour
         }
         
         // update focused crosshair position and rotation if plane is detected
-        if (drawingOnPlane) crosshairFocused.transform.SetPositionAndRotation(hits[0].pose.position, hits[0].pose.rotation);
+        if (drawingOnPlane && hits.Count > 0) 
+            crosshairFocused.transform.SetPositionAndRotation(hits[0].pose.position, hits[0].pose.rotation);
 
         // check for inputs by user
         HandleInputs();
@@ -223,6 +224,8 @@ public class ARDrawManager : MonoBehaviour
     // method to erase lines within range
     void EraseLine(Touch touch)
     {
+        Debug.Log("erase started");
+
         // only erase when touch phase just begins
         if (touch.phase != TouchPhase.Began) return;
 
@@ -230,6 +233,8 @@ public class ARDrawManager : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(Camera.main.transform.position + (Camera.main.transform.forward * eraserDistance), eraserSize, lineLayer);
         // check if there are any collisions
         if (hits.Length <= 0) return;
+
+        Debug.Log("erasing");
 
         // erase lines hit
         foreach (Collider hit in hits)
@@ -239,8 +244,9 @@ public class ARDrawManager : MonoBehaviour
             if (line == null) continue;
             // remove from lines list if it exists
             if (lines.Contains(line)) lines.Remove(line);
+            line.gameObject.SetActive(false);
             // destroy game object
-            Destroy(line.gameObject);
+            // Destroy(line.gameObject);
         }
     }
 
