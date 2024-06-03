@@ -248,13 +248,27 @@ public class ARDrawManager : MonoBehaviour
         foreach (Collider hit in hits)
         {
             // get line component
-            Line line = GetComponent<Line>();
+            Line line = hit.GetComponent<Line>();
             if (line == null) continue;
+            Debug.Log("erasing");
             // remove from lines list if it exists
             if (lines.Contains(line)) lines.Remove(line);
             // destroy game object
             Destroy(line.gameObject);
         }
+    }
+
+    // method to erase all lines in the scene
+    public void EraseAllLines()
+    {
+        Debug.Log("erasing all");
+        // loop through all lines and destroy line
+        foreach (Line line in lines)
+        {
+            Destroy(line.gameObject);
+        }
+        // reset lines list
+        lines.Clear();
     }
 
     // gizmos
