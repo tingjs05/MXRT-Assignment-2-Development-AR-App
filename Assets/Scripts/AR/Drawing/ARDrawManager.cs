@@ -268,7 +268,6 @@ public class ARDrawManager : MonoBehaviour
     // method to erase all lines in the scene
     public void EraseAllLines()
     {
-        Debug.Log("erasing all");
         // loop through all lines and destroy line
         foreach (Line line in lines)
         {
