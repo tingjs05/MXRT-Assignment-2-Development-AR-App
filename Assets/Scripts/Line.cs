@@ -10,13 +10,9 @@ public class Line
     public ARAnchor anchor { get; private set; }
     public MeshCollider collider { get; private set; }
 
-    static int lineCount = -1;
-
     // constructor to create a new line
     public Line(float width, int cornerVertices, Color color, Material material, Transform parent = null)
     {
-        // set line count
-        lineCount = lineCount == -1? 0 : lineCount++;
         // create new game object
         gameObject = new GameObject { name = "Line" };
         // set parent of game object
@@ -39,6 +35,9 @@ public class Line
         renderer.endColor = color;
         // set material
         renderer.material = material;
+
+        // set line game object line layer
+        gameObject.layer = LayerMask.NameToLayer("Line");
 
         // generate mesh collider for line
         Mesh mesh = new Mesh();
