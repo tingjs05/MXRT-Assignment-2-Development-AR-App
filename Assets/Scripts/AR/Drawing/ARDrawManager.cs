@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -247,14 +248,16 @@ public class ARDrawManager : MonoBehaviour
         // erase lines hit
         foreach (Collider hit in hits)
         {
-            // get line component
-            Line line = hit.GetComponent<Line>();
-            if (line == null) continue;
-            Debug.Log("erasing");
-            // remove from lines list if it exists
-            if (lines.Contains(line)) lines.Remove(line);
+            // search for object to remove
+            Line[] lineToRemove = lines
+                .Where(x => x.gameObject == hit.gameObject)
+                .ToArray();
+            // if object cannot be found, do not remove anything
+            if (lineToRemove.Length <= 0) continue;
+            // remove from lines list
+            lines.Remove(lineToRemove[0]);
             // destroy game object
-            Destroy(line.gameObject);
+            Destroy(lineToRemove[0].gameObject);
         }
     }
 
