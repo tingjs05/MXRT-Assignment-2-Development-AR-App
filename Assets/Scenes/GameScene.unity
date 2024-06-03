@@ -2056,6 +2056,11 @@ MonoBehaviour:
   material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   maxPlaneDrawDistance: 5
   lineCameraOffset: 0.5
+  eraserDistance: 1
+  eraserSize: 0.5
+  lineLayer:
+    serializedVersion: 2
+    m_Bits: 64
   crosshair: {fileID: 1301785684}
   crosshairFocused: {fileID: 1212724097}
 --- !u!114 &1128239748

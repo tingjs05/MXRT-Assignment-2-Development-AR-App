@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -22,15 +21,22 @@ public class ARDrawManager : MonoBehaviour
     [SerializeField] float maxPlaneDrawDistance = 5f;
     [SerializeField] float lineCameraOffset = 0.5f;
 
+    [Header("Eraser")]
+    [SerializeField] float eraserDistance = 1f;
+    [SerializeField] float eraserSize = 0.5f;
+    [SerializeField] LayerMask lineLayer;
+
     [Header("UI")]
     [SerializeField] GameObject crosshair;
     [SerializeField] GameObject crosshairFocused;
 
+    // boolean to control if can draw line
+    [HideInInspector] bool CanDraw = true;
+
+    // private variables
     // list to store all generated lines
     List<Line> lines = new List<Line>();
 
-    // current position of camera based on the center of the screen
-    Vector3 cameraCenter;
     // cache the previous anchor point of the line
     Vector3 previousAnchorPosition;
     // parent objects to manage generated line objects
@@ -62,16 +68,16 @@ public class ARDrawManager : MonoBehaviour
         crosshairFocused.SetActive(false);
 
         // test draw line
-        TestLine();
+        // TestLine();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // set camera position
-        cameraCenter = Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
         // use raycast to detect plane
-        raycastManager.Raycast(cameraCenter, hits, TrackableType.Planes);
+        raycastManager.Raycast(
+            Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)), 
+            hits, TrackableType.Planes);
 
         // check if a plane is available and can be drawn on
         // only check for plane if not already drawing line
@@ -87,8 +93,8 @@ public class ARDrawManager : MonoBehaviour
         // update focused crosshair position and rotation if plane is detected
         if (drawingOnPlane) crosshairFocused.transform.SetPositionAndRotation(hits[0].pose.position, hits[0].pose.rotation);
 
-        // check if need to draw a line
-        CheckDrawLine();
+        // check for inputs by user
+        HandleInputs();
     }
 
     // method to draw line for testing purposes
@@ -112,15 +118,28 @@ public class ARDrawManager : MonoBehaviour
         return hits.Count > 0 && Vector3.Distance(hits[0].pose.position, transform.position) <= maxPlaneDrawDistance;
     }
 
-    // methods to handle line drawing
-    // method to check whether to draw a line
-    void CheckDrawLine()
+    // method to handle touch input
+    void HandleInputs()
     {
         // check if user is touching the screen, ensure the user is touching the screen
         if (Input.touchCount <= 0) return;
 
         // get touch input
         Touch touch = Input.GetTouch(0);
+        
+        // decide whether to draw or erase
+        if (CanDraw)
+            DrawLine(touch);
+        else
+            EraseLine(touch);
+    }
+
+    // methods to handle line drawing
+    // method to check whether to draw a line
+    void DrawLine(Touch touch)
+    {
+        // check if can draw
+        if (!CanDraw) return;
 
         // check touch phase
         // end draw line if touch phase ended
@@ -198,5 +217,37 @@ public class ARDrawManager : MonoBehaviour
     {
         // reset default previous anchor position
         previousAnchorPosition = Vector3.zero;
+    }
+
+    // methods to handle erasing lines
+    // method to erase lines within range
+    void EraseLine(Touch touch)
+    {
+        // only erase when touch phase just begins
+        if (touch.phase != TouchPhase.Began) return;
+
+        // erase lines within range through colliders
+        Collider[] hits = Physics.OverlapSphere(Camera.main.transform.position + (Camera.main.transform.forward * eraserDistance), eraserSize, lineLayer);
+        // check if there are any collisions
+        if (hits.Length <= 0) return;
+
+        // erase lines hit
+        foreach (Collider hit in hits)
+        {
+            // get line component
+            Line line = GetComponent<Line>();
+            if (line == null) continue;
+            // remove from lines list if it exists
+            if (lines.Contains(line)) lines.Remove(line);
+            // destroy game object
+            Destroy(line.gameObject);
+        }
+    }
+
+    // gizmos
+    void OnDrawGizmosSelected() 
+    {
+        // draw eraser location
+        Gizmos.DrawWireSphere(Camera.main.transform.position + (Camera.main.transform.forward * eraserDistance), eraserSize);
     }
 }
