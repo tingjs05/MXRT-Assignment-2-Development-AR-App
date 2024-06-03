@@ -62,7 +62,7 @@ public class ARDrawManager : MonoBehaviour
         crosshairFocused.SetActive(false);
 
         // test draw line
-        // TestLine();
+        TestLine();
     }
 
     // Update is called once per frame

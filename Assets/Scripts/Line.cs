@@ -8,6 +8,7 @@ public class Line
     public GameObject gameObject { get; private set; }
     public LineRenderer renderer { get; private set; }
     public ARAnchor anchor { get; private set; }
+    public MeshCollider collider { get; private set; }
 
     static int lineCount = -1;
 
@@ -23,6 +24,7 @@ public class Line
         // add components
         renderer = gameObject.AddComponent<LineRenderer>();
         anchor = gameObject.AddComponent<ARAnchor>();
+        collider = gameObject.AddComponent<MeshCollider>();
 
         // set line renderer properties
         // do not allow line to loop
@@ -37,5 +39,10 @@ public class Line
         renderer.endColor = color;
         // set material
         renderer.material = material;
+
+        // generate mesh collider for line
+        Mesh mesh = new Mesh();
+        renderer.BakeMesh(mesh);
+        collider.sharedMesh = mesh;
     }
 }
