@@ -237,6 +237,86 @@ MonoBehaviour:
   - {fileID: 1340404260}
   - {fileID: 1635694564}
   - {fileID: 996910140}
+--- !u!1001 &122453020
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1146299757058088683, guid: e4b19e26c9b6f8047b913c48c366770b,
+        type: 3}
+      propertyPath: m_Name
+      value: Scene Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789686049989824581, guid: e4b19e26c9b6f8047b913c48c366770b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789686049989824581, guid: e4b19e26c9b6f8047b913c48c366770b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789686049989824581, guid: e4b19e26c9b6f8047b913c48c366770b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789686049989824581, guid: e4b19e26c9b6f8047b913c48c366770b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789686049989824581, guid: e4b19e26c9b6f8047b913c48c366770b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789686049989824581, guid: e4b19e26c9b6f8047b913c48c366770b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789686049989824581, guid: e4b19e26c9b6f8047b913c48c366770b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789686049989824581, guid: e4b19e26c9b6f8047b913c48c366770b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789686049989824581, guid: e4b19e26c9b6f8047b913c48c366770b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789686049989824581, guid: e4b19e26c9b6f8047b913c48c366770b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e4b19e26c9b6f8047b913c48c366770b, type: 3}
+--- !u!114 &122453021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4913898718720542130, guid: e4b19e26c9b6f8047b913c48c366770b,
+    type: 3}
+  m_PrefabInstance: {fileID: 122453020}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c989e9a717d51f47993bcceb66c79c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &143101347
 GameObject:
   m_ObjectHideFlags: 0
@@ -4786,6 +4866,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1001 &1308519149
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3073721569814115785, guid: ab275bbed7e77b44ca59194dd1236198,
+        type: 3}
+      propertyPath: m_Name
+      value: Sound Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697905220267145419, guid: ab275bbed7e77b44ca59194dd1236198,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697905220267145419, guid: ab275bbed7e77b44ca59194dd1236198,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697905220267145419, guid: ab275bbed7e77b44ca59194dd1236198,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697905220267145419, guid: ab275bbed7e77b44ca59194dd1236198,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697905220267145419, guid: ab275bbed7e77b44ca59194dd1236198,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697905220267145419, guid: ab275bbed7e77b44ca59194dd1236198,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697905220267145419, guid: ab275bbed7e77b44ca59194dd1236198,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697905220267145419, guid: ab275bbed7e77b44ca59194dd1236198,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697905220267145419, guid: ab275bbed7e77b44ca59194dd1236198,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697905220267145419, guid: ab275bbed7e77b44ca59194dd1236198,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ab275bbed7e77b44ca59194dd1236198, type: 3}
 --- !u!1 &1340404259
 GameObject:
   m_ObjectHideFlags: 0
@@ -5446,7 +5594,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1796001027}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 122453021}
+        m_TargetAssemblyTypeName: SceneTransitionManager, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1796001027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5883,3 +6043,5 @@ SceneRoots:
   - {fileID: 1212724101}
   - {fileID: 375558868}
   - {fileID: 1779013379}
+  - {fileID: 1308519149}
+  - {fileID: 122453020}
