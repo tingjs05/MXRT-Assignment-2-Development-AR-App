@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
@@ -8,29 +10,31 @@ public class SoundManager : MonoBehaviour
     [SerializeField, Tooltip("Extra sound effects")] 
     private Sound[] clickSounds;
     private AudioSource[] sources;
+    private bool destroySelf;
 
-    public static SoundManager Instance { get; private set; }
-
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else if (Instance != this)
-        {
-            Destroy(Instance.gameObject);
-            Instance = this;
-        }
-    }
-
-    // Start is called before the first frame update
     void Start()
     {
-        // set self to dont destroy on load
-        DontDestroyOnLoad(gameObject);
         // set variables
         sources = GetComponents<AudioSource>();
+        // set destroy self to false
+        destroySelf = false;
+        // set self to dont destroy on load
+        DontDestroyOnLoad(gameObject);
+        // subscribe to scene change event
+        SceneManager.sceneLoaded += DestroySelf;
+    }
+
+    void Update()
+    {
+        // only check if need to destroy self
+        if (!destroySelf) return;
+        // check if any audio sources are playing
+        foreach (AudioSource source in sources)
+        {
+            if (source.isPlaying) return;
+        }
+        // destroy current game object if no sounds are playing
+        Destroy(gameObject);
     }
 
     public void PlayClick(int index)
@@ -49,5 +53,10 @@ public class SoundManager : MonoBehaviour
 
         // play from first audio source if other audio sources are playing
         clickSounds[index].Play(sources[0]);
+    }
+
+    void DestroySelf(Scene scene, LoadSceneMode mode)
+    {
+        destroySelf = true;
     }
 }
