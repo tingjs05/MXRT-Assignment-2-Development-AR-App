@@ -9,9 +9,26 @@ public class SoundManager : MonoBehaviour
     private Sound[] clickSounds;
     private AudioSource[] sources;
 
+    public static SoundManager Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(Instance.gameObject);
+            Instance = this;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        // set self to dont destroy on load
+        DontDestroyOnLoad(gameObject);
         // set variables
         sources = GetComponents<AudioSource>();
     }
