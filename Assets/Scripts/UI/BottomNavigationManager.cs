@@ -22,7 +22,6 @@ public class BottomNavigationManager : MonoBehaviour
         HOME, 
         INFORMATION, 
         GAMES
-
     }
 
     public event Action<NavPages> PageChange;
