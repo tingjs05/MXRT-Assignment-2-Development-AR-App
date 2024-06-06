@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-[RequireComponent(typeof(ARSession))]
 public class ARPreviewManager : MonoBehaviour
 {
     [Header("Interaction")]
@@ -22,8 +21,6 @@ public class ARPreviewManager : MonoBehaviour
     {
         if (session == null) 
             session = GetComponent<ARSession>();
-
-        ResetARSession();
     }
 
     // Update is called once per frame
