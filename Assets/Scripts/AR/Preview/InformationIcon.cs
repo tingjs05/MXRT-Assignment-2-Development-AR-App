@@ -15,6 +15,8 @@ public class InformationIcon : MonoBehaviour
     {
         // get camera transform
         camTransform = Camera.main.transform;
+        // subscribe to event
+        ARPreviewManager.resetSession += SetCamera;
     }
 
     // Update is called once per frame
@@ -30,5 +32,10 @@ public class InformationIcon : MonoBehaviour
         popupMenu.image.sprite = image;
         popupMenu.description.text = description;
         popupMenu.menu.SetActive(true);
+    }
+
+    void SetCamera()
+    {
+        camTransform = Camera.main.transform;
     }
 }

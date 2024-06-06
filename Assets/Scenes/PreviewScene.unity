@@ -1513,7 +1513,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 400, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -800, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &609830291
 MonoBehaviour:
@@ -1838,6 +1838,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
         m_MethodName: PlayClick
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 262254794}
+        m_TargetAssemblyTypeName: PopupMenu, Assembly-CSharp
+        m_MethodName: CloseMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2376,7 +2388,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1023287164
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4412,6 +4424,16 @@ PrefabInstance:
       propertyPath: popupMenu
       value: 
       objectReference: {fileID: 262254794}
+    - target: {fileID: 2640855969362277936, guid: cb773a0da66cde148a7cee66ab91c042,
+        type: 3}
+      propertyPath: description
+      value: Unwind in style on our cozy and elegant sofa, perfectly positioned for
+        relaxation and comfort. Upholstered in high-quality fabric, the sofa offers
+        a plush seating experience with its supportive cushions and contemporary
+        design. Whether you're lounging with a good book, catching up on your favorite
+        shows, or simply enjoying a quiet moment, our sofa provides the perfect blend
+        of comfort and sophistication to enhance your stay.
+      objectReference: {fileID: 0}
     - target: {fileID: 3149838267221155961, guid: cb773a0da66cde148a7cee66ab91c042,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4922,6 +4944,17 @@ PrefabInstance:
       propertyPath: popupMenu
       value: 
       objectReference: {fileID: 262254794}
+    - target: {fileID: 2640855969362277936, guid: cb773a0da66cde148a7cee66ab91c042,
+        type: 3}
+      propertyPath: description
+      value: Experience unparalleled comfort with our luxurious beds, designed to
+        ensure a restful and rejuvenating sleep. Each bed features a plush, high-quality
+        mattress with premium bedding, including crisp, clean linens and a selection
+        of soft and firm pillows to suit your preference. The elegant headboard and
+        cozy duvet create an inviting ambiance, making our beds the perfect retreat
+        after a day of exploring or attending meetings. Whether you're here for business
+        or leisure, our beds promise a peaceful and comfortable night's sleep.
+      objectReference: {fileID: 0}
     - target: {fileID: 3149838267221155961, guid: cb773a0da66cde148a7cee66ab91c042,
         type: 3}
       propertyPath: m_LocalPosition.x

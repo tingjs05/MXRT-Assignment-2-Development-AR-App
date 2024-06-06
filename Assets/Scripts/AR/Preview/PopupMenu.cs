@@ -9,6 +9,11 @@ public class PopupMenu : MonoBehaviour
     public Text description;
     public GameObject menu;
 
+    void Start()
+    {
+        CloseMenu();
+    }
+
     public void CloseMenu()
     {
         menu.SetActive(false);

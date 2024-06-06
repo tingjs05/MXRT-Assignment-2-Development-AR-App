@@ -14,6 +14,8 @@ public class ARPreviewManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] ARSession session;
+    
+    public static event System.Action resetSession;
 
     // Start is called before the first frame update
     void Start()
@@ -52,10 +54,16 @@ public class ARPreviewManager : MonoBehaviour
         // check if there are any collisions
         if (hits.Length <= 0) return;
 
-        // erase lines hit
+        // interact with information icon
         foreach (Collider hit in hits)
         {
-            
+            // get information icon component
+            InformationIcon icon = GetComponent<InformationIcon>();
+            if (icon == null) continue;
+            // if gotten icon, show popup
+            icon.ShowPopup();
+            // only show one icon
+            return;
         }
     }
     
@@ -63,5 +71,6 @@ public class ARPreviewManager : MonoBehaviour
     public void ResetARSession()
     {
         session?.Reset();
+        resetSession?.Invoke();
     }
 }
