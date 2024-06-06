@@ -10,6 +10,7 @@ public class PopupMenu : MonoBehaviour
     [SerializeField] GameObject menu;
     [SerializeField] GameObject backButton;
     [SerializeField] GameObject[] hideWhenOpen;
+    [SerializeField] SoundManager soundManager;
 
     public bool IsOpen { get; private set; } = false;
 
@@ -35,7 +36,11 @@ public class PopupMenu : MonoBehaviour
         {
             obj.SetActive(!open);
         }
+        // only take these actions when opening menu
+        if (!open) return;
         // set back button
-        if (open) backButton.SetActive(true);
+        backButton.SetActive(true);
+        // play sfx
+        soundManager?.PlayClick(2);
     }
 }

@@ -357,6 +357,7 @@ MonoBehaviour:
   - {fileID: 669725011}
   - {fileID: 1548979680}
   - {fileID: 1029230896}
+  soundManager: {fileID: 1308519150}
 --- !u!1 &303420831
 GameObject:
   m_ObjectHideFlags: 0
