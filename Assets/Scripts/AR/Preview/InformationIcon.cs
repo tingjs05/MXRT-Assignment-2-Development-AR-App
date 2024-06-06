@@ -23,7 +23,8 @@ public class InformationIcon : MonoBehaviour
     void Update()
     {
         // look at camera
-        transform.right = new Vector3(-camTransform.forward.z, camTransform.forward.y, camTransform.forward.x);
+        transform.up = -camTransform.forward;
+        transform.forward = -camTransform.up;
     }
 
     public void ShowPopup()
