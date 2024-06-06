@@ -58,7 +58,8 @@ public class ARPreviewManager : MonoBehaviour
         foreach (Collider hit in hits)
         {
             // get information icon component
-            InformationIcon icon = GetComponent<InformationIcon>();
+            InformationIcon icon = hit.GetComponent<InformationIcon>();
+            // ensure icon is not null
             if (icon == null) continue;
             // if gotten icon, show popup
             icon.ShowPopup();

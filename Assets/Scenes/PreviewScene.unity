@@ -135,13 +135,24 @@ PrefabInstance:
         type: 3}
       propertyPath: image
       value: 
-      objectReference: {fileID: 21300000, guid: da09c40cedcd20747a6947c4b03cee32,
+      objectReference: {fileID: 21300000, guid: 72a95f73a4979b145a9d533244af5b0b,
         type: 3}
     - target: {fileID: 2640855969362277936, guid: cb773a0da66cde148a7cee66ab91c042,
         type: 3}
       propertyPath: popupMenu
       value: 
       objectReference: {fileID: 262254794}
+    - target: {fileID: 2640855969362277936, guid: cb773a0da66cde148a7cee66ab91c042,
+        type: 3}
+      propertyPath: description
+      value: "Enjoy premium entertainment with our state-of-the-art television, featuring
+        a large, high-definition screen and a wide range of channels for your viewing
+        pleasure. The sleek design seamlessly integrates with the room\u2019s decor,
+        providing a modern touch. Whether you\u2019re catching up on the latest news,
+        watching your favorite shows, or exploring on-demand movies, our TV offers
+        crystal-clear picture quality and rich sound to enhance your in-room entertainment
+        experience."
+      objectReference: {fileID: 0}
     - target: {fileID: 3149838267221155961, guid: cb773a0da66cde148a7cee66ab91c042,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2230,6 +2241,16 @@ PrefabInstance:
       propertyPath: popupMenu
       value: 
       objectReference: {fileID: 262254794}
+    - target: {fileID: 2640855969362277936, guid: cb773a0da66cde148a7cee66ab91c042,
+        type: 3}
+      propertyPath: description
+      value: Our modern and pristine toilet is designed for your comfort and hygiene.
+        Featuring sleek fixtures, high-quality materials, and meticulous cleanliness,
+        it offers a refreshing and pleasant experience. The well-appointed space
+        includes a powerful flush system, soft-close seat, and ample lighting, ensuring
+        both functionality and comfort. With thoughtful touches and impeccable upkeep,
+        our toilet provides a serene and sanitary environment for your convenience.
+      objectReference: {fileID: 0}
     - target: {fileID: 3149838267221155961, guid: cb773a0da66cde148a7cee66ab91c042,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3835,13 +3856,24 @@ PrefabInstance:
         type: 3}
       propertyPath: image
       value: 
-      objectReference: {fileID: 21300000, guid: 2611d19e34b4c2f49aa9b581ffa49927,
+      objectReference: {fileID: 21300000, guid: da09c40cedcd20747a6947c4b03cee32,
         type: 3}
     - target: {fileID: 2640855969362277936, guid: cb773a0da66cde148a7cee66ab91c042,
         type: 3}
       propertyPath: popupMenu
       value: 
       objectReference: {fileID: 262254794}
+    - target: {fileID: 2640855969362277936, guid: cb773a0da66cde148a7cee66ab91c042,
+        type: 3}
+      propertyPath: description
+      value: "Our elegant dressing table provides a chic and functional space for
+        your grooming and preparation needs. Featuring a spacious surface, well-lit
+        mirror, and convenient drawers, it\u2019s designed to keep your essentials
+        organized and easily accessible. The stylish design complements the room\u2019s
+        decor, making it a perfect spot to get ready for a day of adventures or an
+        evening out. Whether you\u2019re touching up makeup or styling your hair,
+        our dressing table offers both practicality and elegance."
+      objectReference: {fileID: 0}
     - target: {fileID: 3149838267221155961, guid: cb773a0da66cde148a7cee66ab91c042,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4417,7 +4449,7 @@ PrefabInstance:
         type: 3}
       propertyPath: image
       value: 
-      objectReference: {fileID: 21300000, guid: 72a95f73a4979b145a9d533244af5b0b,
+      objectReference: {fileID: 21300000, guid: 2611d19e34b4c2f49aa9b581ffa49927,
         type: 3}
     - target: {fileID: 2640855969362277936, guid: cb773a0da66cde148a7cee66ab91c042,
         type: 3}
@@ -5004,6 +5036,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4487680313893467506, guid: cb773a0da66cde148a7cee66ab91c042,
+        type: 3}
+      propertyPath: m_Radius
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4487680313893467506, guid: cb773a0da66cde148a7cee66ab91c042,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4487680313893467506, guid: cb773a0da66cde148a7cee66ab91c042,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4487680313893467506, guid: cb773a0da66cde148a7cee66ab91c042,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5904787041314348286, guid: cb773a0da66cde148a7cee66ab91c042,
         type: 3}
