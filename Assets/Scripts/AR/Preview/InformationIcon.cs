@@ -7,21 +7,14 @@ public class InformationIcon : MonoBehaviour
 {
     [SerializeField] Sprite image;
     [SerializeField, Multiline] string description;
-    [SerializeField] GameObject popupMenu;
-
+    [SerializeField] PopupMenu popupMenu;
     Transform camTransform;
-    Image popupImage;
-    Text text;
 
     // Start is called before the first frame update
     void Start()
     {
         // get camera transform
         camTransform = Camera.main.transform;
-        // get popup image and text
-        if (popupMenu == null) { Debug.LogWarning("Popup Menu is not provided! Operation has been cancelled. "); return; }
-        popupImage = popupMenu.GetComponentInChildren<Image>();
-        text = popupMenu.GetComponentInChildren<Text>();
     }
 
     // Update is called once per frame
@@ -34,8 +27,8 @@ public class InformationIcon : MonoBehaviour
     public void ShowPopup()
     {
         if (popupMenu == null) { Debug.LogWarning("Popup Menu is not provided! Operation has been cancelled. "); return; }
-        popupImage.sprite = image;
-        text.text = description;
-        popupMenu.SetActive(true);
+        popupMenu.image.sprite = image;
+        popupMenu.description.text = description;
+        popupMenu.menu.SetActive(true);
     }
 }
