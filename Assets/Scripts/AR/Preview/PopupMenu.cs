@@ -8,6 +8,7 @@ public class PopupMenu : MonoBehaviour
     public Image image;
     public Text description;
     [SerializeField] GameObject menu;
+    [SerializeField] GameObject backButton;
     [SerializeField] GameObject[] hideWhenOpen;
 
     public bool IsOpen { get; private set; } = false;
@@ -15,6 +16,12 @@ public class PopupMenu : MonoBehaviour
     void Start()
     {
         SetMenu(false);
+    }
+
+    void Update()
+    {
+        if (IsOpen || menu.activeSelf || !backButton.activeSelf) return;
+        backButton.SetActive(false);
     }
 
     public void SetMenu(bool open)
@@ -28,5 +35,7 @@ public class PopupMenu : MonoBehaviour
         {
             obj.SetActive(!open);
         }
+        // set back button
+        if (open) backButton.SetActive(true);
     }
 }
