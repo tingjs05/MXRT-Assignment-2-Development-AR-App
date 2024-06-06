@@ -36,6 +36,8 @@ public class ARPreviewManager : MonoBehaviour
         if (Input.touchCount <= 0) return;
         // get touch input
         Touch touch = Input.GetTouch(0);
+        // check if user is touching only the bottom 90% of screen
+        if (touch.position.y > Screen.height * 0.9f) return;
         // try to interact with objects
         Interact(touch);
     }
