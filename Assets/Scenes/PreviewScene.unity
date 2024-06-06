@@ -1793,7 +1793,6 @@ GameObject:
   - component: {fileID: 1128239745}
   - component: {fileID: 1128239744}
   - component: {fileID: 1128239743}
-  - component: {fileID: 1128239746}
   - component: {fileID: 1128239749}
   m_Layer: 0
   m_Name: XR Origin (XR Rig)
@@ -1849,21 +1848,6 @@ Transform:
   - {fileID: 832545111}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1128239746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128239742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PlanePrefab: {fileID: 1585201990951412, guid: 886609fc1566e4c27b399f1095d6de18,
-    type: 3}
-  m_DetectionMode: 1
 --- !u!114 &1128239749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2834,17 +2818,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 869b93960ab5422479e64b634c440891,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 869b93960ab5422479e64b634c440891,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 869b93960ab5422479e64b634c440891,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 869b93960ab5422479e64b634c440891,
         type: 3}
