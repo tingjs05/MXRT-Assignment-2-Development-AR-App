@@ -7,15 +7,26 @@ public class PopupMenu : MonoBehaviour
 {
     public Image image;
     public Text description;
-    public GameObject menu;
+    [SerializeField] GameObject menu;
+    [SerializeField] GameObject[] hideWhenOpen;
+
+    public bool IsOpen { get; private set; } = false;
 
     void Start()
     {
-        CloseMenu();
+        SetMenu(false);
     }
 
-    public void CloseMenu()
+    public void SetMenu(bool open)
     {
-        menu.SetActive(false);
+        // set is open public property
+        IsOpen = open;
+        // set menu
+        menu.SetActive(open);
+        // toggle other objects
+        foreach (GameObject obj in hideWhenOpen)
+        {
+            obj.SetActive(!open);
+        }
     }
 }

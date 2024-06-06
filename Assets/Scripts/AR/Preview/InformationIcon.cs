@@ -31,11 +31,11 @@ public class InformationIcon : MonoBehaviour
         // ensure popup menu is not null
         if (popupMenu == null) { Debug.LogWarning("Popup Menu is not provided! Operation has been cancelled. "); return; }
         // do not run if menu is already open
-        if (popupMenu.menu.activeSelf) return;
+        if (popupMenu.IsOpen) return;
         // set images and show menu
         popupMenu.image.sprite = image;
         popupMenu.description.text = description;
-        popupMenu.menu.SetActive(true);
+        popupMenu.SetMenu(true);
     }
 
     void SetCamera()
