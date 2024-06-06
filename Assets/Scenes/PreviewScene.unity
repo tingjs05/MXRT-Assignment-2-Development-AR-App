@@ -2095,6 +2095,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8d185975aed0c4cb929a8ae6d82cf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionDistance: 1
+  interactionRange: 0.5
+  interactionLayer:
+    serializedVersion: 2
+    m_Bits: 128
   session: {fileID: 1086833719}
 --- !u!114 &1128239751
 MonoBehaviour:
