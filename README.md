@@ -1,2 +1,12 @@
+<img src="https://github.com/tingjs05/MXRT-Assignment-2-Development-AR-App/assets/105273734/6ba8dfdd-c3a7-4aff-84f7-4c23559aa5f2" width="24.25%"/>
+<img src="https://github.com/tingjs05/MXRT-Assignment-2-Development-AR-App/assets/105273734/918f5a9f-6a66-4352-8006-7d8fe44794a8" width="24.25%"/>
+<img src="https://github.com/tingjs05/MXRT-Assignment-2-Development-AR-App/assets/105273734/ef3930bf-4944-4e48-8052-98fbf3b47bc9" width="24.25%"/>
+<img src="https://github.com/tingjs05/MXRT-Assignment-2-Development-AR-App/assets/105273734/195bcf6c-23ea-4d6a-8be8-a4ec2c573886" width="24.25%"/>
+<img src="https://github.com/tingjs05/MXRT-Assignment-2-Development-AR-App/assets/105273734/28005bb5-7f2b-4612-a1a2-5c871967c813" width="24.25%"/>
+<img src="https://github.com/tingjs05/MXRT-Assignment-2-Development-AR-App/assets/105273734/6dcbe8da-aa0a-46bb-9a68-b7bf24ce8834" width="24.25%"/>
+<img src="https://github.com/tingjs05/MXRT-Assignment-2-Development-AR-App/assets/105273734/cec4f0f7-8379-4cff-845d-b7882b06a0c6" width="24.25%"/>
+<img src="https://github.com/tingjs05/MXRT-Assignment-2-Development-AR-App/assets/105273734/5273049e-bd85-46e9-874d-35ededa26aa7" width="24.25%"/>
+
 # Description
+
 This is an Augmented Reality (AR) application developed for android. The purpose of this application is to improve the user experience of the Hotel and Hospitality industry. This project was developed as part of the Mixed Reality Application Development (MXRT) Project. 
