@@ -16,7 +16,7 @@ To access these features, you must navigate to the "recently viewed" tab in the 
 <br><br>
 To view the Adobe XD prototype this MVP is created for, please click [here](https://xd.adobe.com/view/89899465-f0cd-44dd-a2e3-c6a65dec053b-dcda/). 
 <br>
-To try out the MVP, click [here](), or download the APK file from the releases. 
+To try out the MVP, click [here](https://github.com/tingjs05/MXRT-Assignment-2-Development-AR-App/releases/tag/v1.0.0), or download the APK file from the releases. 
 
 # AR Room Preview
 This is a feature that allows users to preview a hotel room before booking. Clicking on the screen when near an "i" icon would allow users to view more information about that item in the room. The user can also reset their AR session by clicking on the reset button at the top, or hide the user interface to get a better view of the facility. 
